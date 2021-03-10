@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 12:58:09 by aabounak          #+#    #+#             */
-/*   Updated: 2021/03/06 16:19:02 by khafni           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:22:38 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,20 @@ void			rstr_add (t_rstr rs, char value);
 void			rstr_clear(t_rstr rs);
 
 /*
-**	convert str to c string
+**	convert rstr to c string
 */
 
 char			*rstr_to_cstr(t_rstr rs);
+
+/*
+** get a character from an rstr with a specific index
+*/
+
 char    rstr_get(t_rstr rs, int index);
 
+/*
+**	convert c string to rstr
+*/
+
+t_rstr	cstr_to_rstr(char *cstr);
 #endif
