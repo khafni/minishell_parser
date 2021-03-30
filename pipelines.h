@@ -1,0 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipelines.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/30 10:44:46 by khafni            #+#    #+#             */
+/*   Updated: 2021/03/30 15:08:46 by khafni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PIPELINES_H
+# define PIPELINES_H
+# include "CPCA/generic_parrays/garrptr.h"
+# include "libft/libft.h"
+
+/*
+** A pipeline is a sequence of one or more commands separated by the control operator ‘|’
+*/
+
+# define IS_AFTER_PIPE 1
+# define IS_AFTER_SEMICOLON 2
+# define NO_PIPE_OR_SEMICOLON 3
+
+/*
+** after every elementry line we shall know if it's
+** followed by a pipe or a semicolon
+*/
+typedef struct s_unproccesed_line *t_unproccesed_line;
+
+struct s_unproccesed_line
+{
+	t_arrptr	lines;
+	t_arrptr	masks;
+};
+
+
+/*
+** the tracked lines will contain the lines + an element that
+** states if they're followed by a pipe or ;
+*/
+
+typedef struct	s_pipeline *t_pipeline;
+
+struct s_pipeline
+{
+	char	*cmd_line;
+	char	*cmd_line_m;
+	char	is_after_p_or_sc;
+};
+
+t_pipeline	pipeline(char *cmd_line, char *cmd_line_m, char is_after_p_or_sc);
+void			pipeline_destroy(void *pl);
+
+/*
+** TODO : switch from t_arrptr to t_dlist because t_list are non functional
+*/
+t_arrptr			get_pipelines(char *str);
+#endif

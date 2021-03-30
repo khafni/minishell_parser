@@ -72,4 +72,10 @@ void			arrptr_set(t_arrptr a, int index, void *obj);
 ** (c++ vectors push back method)
 */
 void			arrptr_add(t_arrptr a, void *obj);
+
+/*
+**	iterate over every element of the array and apply a function on it
+*/
+
+
 #endif

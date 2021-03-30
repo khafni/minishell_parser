@@ -34,3 +34,18 @@ char    rstr_get(t_rstr rs, int index)
                 return (-42);
         return (*(rs->data + index));
 }
+
+t_rstr			cstr_to_rstr(char *cstr)
+{
+	t_rstr rs;
+	int		i;
+
+	i = 0;
+	rs = rstr_create(0);
+	while (cstr[i])
+	{
+		rstr_add(rs, cstr[i]);
+		i++;
+	}
+	return (rs);
+}
