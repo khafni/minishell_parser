@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "pipelines.h"
 
 int main(int argc, char **argv, char **env)
 {
-    for (int i = 0; env[i]; i++)
-        printf("%s\n", env[i]);
+    t_arrptr pls = get_pipelines("\"ls\";echo");
+    for (int i = 0; i < pls->len; i++)
+    {
+        t_pipeline p = arrptr_get(pls, i);
+        printf("%s\n%s\n", p->cmd_line, p->cmd_line_m);
+    }
     return (0);
 }

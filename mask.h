@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 10:54:43 by khafni            #+#    #+#             */
-/*   Updated: 2021/03/30 11:06:32 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/02 16:36:40 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		init_states(t_state *state);
 char		get_mask_char_inside_dq(t_state *state, char *s, int i);
 char		get_mask_character(t_state *state, char *s, int i);
 char	    *get_mask(char *s);
-
+t_arrptr	split_using_mask(char *str, char *str_mask, char del);
 
 
 #endif

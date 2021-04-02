@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:03:20 by khafni            #+#    #+#             */
-/*   Updated: 2021/03/30 15:10:18 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/02 19:01:51 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,30 @@ t_arrptr		get_pipelines(char *str)
 		else if (mask[i] == ';' || mask[i] == '|')
 		{
 			if (mask[i] == ';')
-				arrptr_add(arr, pipeline_u(rstr_to_cstr(tmp_str), rstr_to_cstr(tmp_str_m),
+				arrptr_add(arr, pipeline(rstr_to_cstr(tmp_str), rstr_to_cstr(tmp_str_m),
 					IS_AFTER_SEMICOLON));
 			else if (mask[i] == '|')
-				arrptr_add(arr, pipeline_u(rstr_to_cstr(tmp_str), rstr_to_cstr(tmp_str_m),
+				arrptr_add(arr, pipeline(rstr_to_cstr(tmp_str), rstr_to_cstr(tmp_str_m),
 					IS_AFTER_PIPE));
 			rstr_clear(tmp_str);
 			rstr_clear(tmp_str_m);
 		}
 		i++;
 	}
-	arrptr_add(arr, pipeline_u(rstr_to_cstr(tmp_str), rstr_to_cstr(tmp_str_m),
+	arrptr_add(arr, pipeline(rstr_to_cstr(tmp_str), rstr_to_cstr(tmp_str_m),
 		NO_PIPE_OR_SEMICOLON));
 	free(mask);
 	rstr_destroy(tmp_str);
 	rstr_destroy(tmp_str_m);
 	return (arr);
 }
+
+t_tokens		tokens(t_pipeline pl)
+{
+	t_tokens tk;
+
+	tk = malloc(sizeof(struct s_tokens));
+	
+	return (tk);
+}
+void			tokens_destroy(t_tokens tks);

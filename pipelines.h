@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 10:44:46 by khafni            #+#    #+#             */
-/*   Updated: 2021/03/30 15:08:46 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/02 19:00:06 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPELINES_H
 # include "CPCA/generic_parrays/garrptr.h"
 # include "libft/libft.h"
+# include "mask.h"
 
 /*
 ** A pipeline is a sequence of one or more commands separated by the control operator ‘|’
@@ -27,14 +28,18 @@
 ** after every elementry line we shall know if it's
 ** followed by a pipe or a semicolon
 */
-typedef struct s_unproccesed_line *t_unproccesed_line;
+typedef struct s_tokens *t_tokens;
 
-struct s_unproccesed_line
+struct s_tokens
 {
-	t_arrptr	lines;
-	t_arrptr	masks;
+	t_arrptr tokens;
+	t_arrptr tokens_masks;	
+	
 };
 
+
+t_tokens		tokens(t_pipeline pl);
+void			tokens_destroy(t_tokens tks);
 
 /*
 ** the tracked lines will contain the lines + an element that
