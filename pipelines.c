@@ -76,12 +76,41 @@ t_arrptr		get_pipelines(char *str)
 	return (arr);
 }
 
-t_tokens		tokens(t_pipeline pl)
+/*
+** tokens take a pipeline aka a cmd_line
+** and its mask and returns them as tokens so
+** a further parsing on the tokens can be done
+** and we can get a command table from every group
+** of tokens
+*/
+
+/* t_tokens		tokens(t_pipeline pl)
 {
-	t_tokens tk;
+	t_tokens	tk;
+	t_rstr		tmp_str;
+	t_rstr		tmp_str_m;
+	int i;
 
 	tk = malloc(sizeof(struct s_tokens));
-	
+	i = 0;
+	tmp_str = rstr_create(0);
+	tmp_str_m = rstr_create(0);
+	tk->tokens = empty_arrptr_create(free);
+	tk->tokens_masks = empty_arrptr_create(free);
+	while(pl->cmd_line_m[i])
+	{
+		if (pl->cmd_line_m[i] != 'w')
+			printf("w");
+		i++;
+	}
+	rstr_destroy(tmp_str);
+	rstr_destroy(tmp_str_m);
 	return (tk);
 }
-void			tokens_destroy(t_tokens tks);
+
+void			tokens_destroy(t_tokens tks)
+{
+	arrptr_destroy(tks->tokens);
+	arrptr_destroy(tks->tokens);
+	free(tks);
+} */

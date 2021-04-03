@@ -12,8 +12,6 @@
 
 #ifndef PIPELINES_H
 # define PIPELINES_H
-# include "CPCA/generic_parrays/garrptr.h"
-# include "libft/libft.h"
 # include "mask.h"
 
 /*
@@ -28,18 +26,6 @@
 ** after every elementry line we shall know if it's
 ** followed by a pipe or a semicolon
 */
-typedef struct s_tokens *t_tokens;
-
-struct s_tokens
-{
-	t_arrptr tokens;
-	t_arrptr tokens_masks;	
-	
-};
-
-
-t_tokens		tokens(t_pipeline pl);
-void			tokens_destroy(t_tokens tks);
 
 /*
 ** the tracked lines will contain the lines + an element that
@@ -62,4 +48,17 @@ void			pipeline_destroy(void *pl);
 ** TODO : switch from t_arrptr to t_dlist because t_list are non functional
 */
 t_arrptr			get_pipelines(char *str);
+/* typedef struct s_tokens *t_tokens;
+
+struct s_tokens
+{
+	t_arrptr tokens;
+	t_arrptr tokens_masks;	
+	
+};
+
+
+t_tokens		tokens(t_pipeline pl);
+void			tokens_destroy(t_tokens tks); */
+
 #endif

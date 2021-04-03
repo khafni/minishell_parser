@@ -32,11 +32,9 @@ static char		*display(char const *s1, int start, int end)
 
 char			*ft_strtrim(char const *s1, char const *set)
 {
-	int		i;
 	int		start;
 	int		end;
-
-	i = 0;
+	
 	start = 0;
 	if (!s1)
 		return (0);
