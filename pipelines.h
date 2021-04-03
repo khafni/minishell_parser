@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 10:44:46 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/02 19:00:06 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/03 14:53:45 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			pipeline_destroy(void *pl);
 ** TODO : switch from t_arrptr to t_dlist because t_list are non functional
 */
 t_arrptr			get_pipelines(char *str);
-/* typedef struct s_tokens *t_tokens;
+typedef struct s_tokens *t_tokens;
 
 struct s_tokens
 {
@@ -59,6 +59,6 @@ struct s_tokens
 
 
 t_tokens		tokens(t_pipeline pl);
-void			tokens_destroy(t_tokens tks); */
+void			tokens_destroy(t_tokens tks);
 
 #endif

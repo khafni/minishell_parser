@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:03:20 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/02 19:01:51 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/03 15:05:563 15:05:59 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_arrptr		get_pipelines(char *str)
 ** of tokens
 */
 
-/* t_tokens		tokens(t_pipeline pl)
+t_tokens		tokens(t_pipeline pl)
 {
 	t_tokens	tk;
 	t_rstr		tmp_str;
@@ -99,9 +99,28 @@ t_arrptr		get_pipelines(char *str)
 	tk->tokens_masks = empty_arrptr_create(free);
 	while(pl->cmd_line_m[i])
 	{
-		if (pl->cmd_line_m[i] != 'w')
-			printf("w");
+		if (pl->cmd_line_m[i] != 'W')
+		{
+			rstr_add(tmp_str, pl->cmd_line[i]);
+			rstr_add(tmp_str_m, pl->cmd_line_m[i]);
+		}
+		else if (pl->cmd_line_m[i] == 'W' && tmp_str_m->len > 0)
+		{
+			//while(pl->cmd_line_m[i] == 'W')
+				//i++;
+			arrptr_add(tk->tokens, rstr_to_cstr(tmp_str));
+			arrptr_add(tk->tokens_masks, rstr_to_cstr(tmp_str_m));
+			rstr_clear(tmp_str);
+			rstr_clear(tmp_str_m);
+
+		}
+		
 		i++;
+	}
+	if (tmp_str_m->len)
+	{
+		arrptr_add(tk->tokens, rstr_to_cstr(tmp_str));
+		arrptr_add(tk->tokens_masks, rstr_to_cstr(tmp_str_m));	
 	}
 	rstr_destroy(tmp_str);
 	rstr_destroy(tmp_str_m);
@@ -113,4 +132,4 @@ void			tokens_destroy(t_tokens tks)
 	arrptr_destroy(tks->tokens);
 	arrptr_destroy(tks->tokens);
 	free(tks);
-} */
+}
