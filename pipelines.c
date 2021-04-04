@@ -130,6 +130,6 @@ t_tokens		tokens(t_pipeline pl)
 void			tokens_destroy(t_tokens tks)
 {
 	arrptr_destroy(tks->tokens);
-	arrptr_destroy(tks->tokens);
+	arrptr_destroy(tks->tokens_masks);
 	free(tks);
 }

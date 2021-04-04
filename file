@@ -1,0 +1,14 @@
+CPCA
+a.out
+command_table.c
+command_table.h
+dlist
+file
+get_next_line
+libft
+mask.c
+mask.h
+pipelines.c
+pipelines.h
+test
+test.c
