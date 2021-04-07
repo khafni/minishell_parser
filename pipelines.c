@@ -94,9 +94,9 @@ t_tokens		tokens(t_pipeline pl)
 	tk = malloc(sizeof(struct s_tokens));
 	i = 0;
 	tmp_str = rstr_create(0);
-	tmp_str_m = rstr_create(0);
-	tk->tokens = empty_arrptr_create(free);
-	tk->tokens_masks = empty_arrptr_create(free);
+	tmp_str_m = rstr_create(0);	
+	tk->tokens = dlist_empty_create(free, NULL, NULL);
+	tk->tokens_masks = dlist_empty_create(free, NULL, NULL);
 	while(pl->cmd_line_m[i])
 	{
 		if (pl->cmd_line_m[i] != 'W')
@@ -108,28 +108,67 @@ t_tokens		tokens(t_pipeline pl)
 		{
 			//while(pl->cmd_line_m[i] == 'W')
 				//i++;
-			arrptr_add(tk->tokens, rstr_to_cstr(tmp_str));
-			arrptr_add(tk->tokens_masks, rstr_to_cstr(tmp_str_m));
+			dlist_pushback(tk->tokens, rstr_to_cstr(tmp_str));
+			dlist_pushback(tk->tokens_masks, rstr_to_cstr(tmp_str_m));
 			rstr_clear(tmp_str);
 			rstr_clear(tmp_str_m);
 
 		}
-		
 		i++;
 	}
 	if (tmp_str_m->len)
 	{
-		arrptr_add(tk->tokens, rstr_to_cstr(tmp_str));
-		arrptr_add(tk->tokens_masks, rstr_to_cstr(tmp_str_m));	
+		dlist_pushback(tk->tokens, rstr_to_cstr(tmp_str));
+		dlist_pushback(tk->tokens_masks, rstr_to_cstr(tmp_str_m));	
 	}
 	rstr_destroy(tmp_str);
 	rstr_destroy(tmp_str_m);
 	return (tk);
 }
 
+int				is_reder(char c)
+{
+	if (c == '<' || c == '>')	
+		return (1);
+	return (0);
+}
+
+int				is_red_cmd_non_split(void *token_)
+{
+	char *token;
+	size_t	l;
+	int i;
+
+	i = 0;
+	token = (char*)token_;
+	l = ft_strlen(token);	
+	if (token[0] == '<' || token[0] == '>')	
+		return (0);
+	while (token[i] && !is_reder(token[i]))	
+		i++;	
+	if (token[i] == '<' || token[i] == '>')	
+		return (1);
+	return (0);
+}
+
+void			tokens_split_w_red(t_tokens tks)
+{
+	t_rstr rs;
+
+	rs = rstr_create(0);
+
+	dlist_move_cursor_to_head(tks->tokens);
+    while (tks->tokens->cursor_n != tks->tokens->sentinel) 
+    {
+		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
+        	printf("%s\n", (char*)tks->tokens->cursor_n->value);
+        dlist_move_cursor_to_next(tks->tokens);	
+	}
+}
+
 void			tokens_destroy(t_tokens tks)
 {
-	arrptr_destroy(tks->tokens);
-	arrptr_destroy(tks->tokens_masks);
+	dlist_destroy(tks->tokens);
+	dlist_destroy(tks->tokens_masks);	
 	free(tks);
 }

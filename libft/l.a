@@ -1,0 +1,1665 @@
+!<arch>
+//                                              38        `
+ft_lstadd_back.c/
+ft_lstadd_front.c/
+
+ft_atoi.c/      0           0     0     644     1599      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:53:07 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/18 19:24:20 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int		condition(long result, long sign)
+{
+	if (result > 2147483648 && sign == -1)
+		return (0);
+	if (result > 2147483647 && sign == 1)
+		return (-1);
+	return (0);
+}
+
+int		ft_atoi(const char *str)
+{
+	long	sign;
+	long	result;
+
+	sign = 1;
+	result = 0;
+	while (*str == 32 || *str == 10 || *str == 9
+				|| *str == 11 || *str == 12 || *str == 13)
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (*str)
+	{
+		if (*str < 48 || *str > 57)
+			return (result * sign);
+		result = (result * 10) + (*str - '0');
+		if ((result > 2147483648 && sign == -1)
+				|| (result > 2147483647 && sign == 1))
+			return (condition(result, sign));
+		str++;
+	}
+	return (result * sign);
+}
+
+ft_bzero.c/     0           0     0     644     1021      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/20 18:56:20 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/20 18:56:27 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void		ft_bzero(void *s, size_t n)
+{
+	size_t		i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = 0;
+		i++;
+	}
+}
+
+ft_calloc.c/    0           0     0     644     1064      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/20 18:56:33 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/20 18:56:37 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*p;
+
+	if (!(p = malloc(count * size)))
+		return (NULL);
+	ft_bzero(p, (size * count));
+	return (p);
+}
+ft_isalnum.c/   0           0     0     644     1022      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:53:56 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/15 14:33:43 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int		ft_isalnum(int c)
+{
+	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	return (0);
+}
+ft_isalpha.c/   0           0     0     644     998       `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:54:09 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/19 10:52:23 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int		ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	return (0);
+}
+ft_isascii.c/   0           0     0     644     971       `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:54:19 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/14 17:55:03 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int		ft_isascii(int c)
+{
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
+}
+
+ft_isdigit.c/   0           0     0     644     971       `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:54:31 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/19 10:27:50 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int		ft_isdigit(int i)
+{
+	if (i >= 48 && i <= 57)
+		return (1);
+	return (0);
+}
+
+ft_isprint.c/   0           0     0     644     972       `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:55:08 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/14 17:55:14 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int		ft_isprint(int c)
+{
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
+}
+ft_itoa.c/      0           0     0     644     1696      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:55:21 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/20 19:22:38 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+int			find_size(int nb)
+{
+	int		size;
+
+	size = 1;
+	if (nb < 0)
+	{
+		nb = -nb;
+		size++;
+	}
+	while (((nb /= 10) > 0))
+		size *= 10;
+	return (size);
+}
+
+static int	find_digits(int n)
+{
+	int		i;
+
+	i = 0;
+	if (n == 0)
+	{
+		i++;
+		return (i);
+	}
+	if (n < 0)
+	{
+		i++;
+		n *= -1;
+	}
+	while (n > 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+char		*ft_itoa(int n)
+{
+	int		i;
+	int		sign;
+	int		size;
+	char	*str;
+
+	i = 0;
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (!(str = (char *)malloc(sizeof(char) * (find_digits(n) + 1))))
+		return (0);
+	sign = n;
+	if (sign < 0)
+	{
+		str[i++] = '-';
+		n = -n;
+	}
+	size = find_size(n);
+	while (size)
+	{
+		str[i++] = (n / size) + '0';
+		n %= size;
+		size /= 10;
+	}
+	str[i++] = '\0';
+	return (str);
+}
+/0              0           0     0     644     1086      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/15 12:53:15 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/15 12:55:59 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*last;
+
+	if (lst)
+	{
+		if (*lst)
+		{
+			last = ft_lstlast(*lst);
+			last->next = new;
+		}
+		else
+			*lst = new;
+	}
+}
+/18             0           0     0     644     1027      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/15 12:52:31 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/15 12:56:30 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (lst)
+	{
+		if (*lst)
+			new->next = *lst;
+		*lst = new;
+	}
+}
+
+ft_lstclear.c/  0           0     0     644     1083      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/15 12:55:12 by aabounak          #+#    #+#             */
+/*   Updated: 2021/02/17 17:30:19 by khafni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*tmp;
+
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, (*del));
+		*lst = tmp;
+	}
+	*lst = NULL;
+}
+
+ft_lstdelone.c/ 0           0     0     644     1014      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/15 12:53:27 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/15 19:30:16 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (lst)
+		(*del)(lst->content);
+	free(lst);
+}
+ft_lstiter.c/   0           0     0     644     1024      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/15 12:55:23 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/15 12:57:22 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	while (lst)
+	{
+		(*f)(lst->content);
+		lst = lst->next;
+	}
+}
+ft_lstlast.c/   0           0     0     644     1099      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/15 12:52:58 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/15 19:30:36 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	t_list	*current;
+
+	current = lst;
+	if (current == NULL)
+		return (NULL);
+	while (current->next != NULL)
+		current = current->next;
+	return (current);
+}
+
+ft_lstnew.c/    0           0     0     644     1111      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/15 12:52:12 by aabounak          #+#    #+#             */
+/*   Updated: 2021/02/17 16:46:39 by khafni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*head;
+
+	head = NULL;
+	if (!(head = (t_list *)malloc(sizeof(t_list))))
+		return (NULL);
+	(head)->content = content;
+	(head)->next = NULL;
+	return (head);
+}
+
+ft_lstsize.c/   0           0     0     644     1044      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/15 12:52:45 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/15 12:56:53 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+int		ft_lstsize(t_list *lst)
+{
+	int	count;
+
+	count = 0;
+	while (lst != NULL)
+	{
+		count++;
+		lst = lst->next;
+	}
+	return (count);
+}
+ft_malloc.c/    0           0     0     644     1166      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/14 18:06:43 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/15 12:55:46 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*g_alloc[400];
+int		g_all = 0;
+
+void	to_free(void)
+{
+	int		i;
+
+	i = -1;
+	while (++i < g_all)
+		free(g_alloc[i]);
+}
+
+void	*ft_malloc(size_t n)
+{
+	void	*tmp;
+
+	if (!(tmp = malloc(n)))
+		return (NULL);
+	g_alloc[g_all] = tmp;
+	g_all++;
+	return (tmp);
+}
+ft_memccpy.c/   0           0     0     644     1253      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:55:40 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/17 14:14:13 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+{
+	size_t			i;
+	unsigned char	*source;
+	unsigned char	*destination;
+
+	i = 0;
+	source = (unsigned char*)src;
+	destination = (unsigned char*)dst;
+	while (i < n)
+	{
+		destination[i] = source[i];
+		if (source[i] == (unsigned char)c)
+			return (dst + i + 1);
+		i++;
+	}
+	return (0);
+}
+
+ft_memchr.c/    0           0     0     644     1124      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:55:55 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/17 15:57:03 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	unsigned char *str;
+
+	str = (unsigned char *)s;
+	while (n)
+	{
+		if (*str != (unsigned char)c)
+			str++;
+		else
+			return ((void *)str);
+		n--;
+	}
+	return (0);
+}
+ft_memcmp.c/    0           0     0     644     1180      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memcmp.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/12 16:37:08 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/17 14:15:07 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	unsigned char *str1;
+	unsigned char *str2;
+
+	str1 = (unsigned char*)s1;
+	str2 = (unsigned char*)s2;
+	while (n)
+	{
+		if (*str1 != *str2)
+			return (*str1 - *str2);
+		str1++;
+		str2++;
+		n--;
+	}
+	return (0);
+}
+ft_memcpy.c/    0           0     0     644     1172      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:51:35 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/25 15:28:25 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char		*tdst;
+	const char	*tsrc;
+
+	tdst = dst;
+	tsrc = src;
+	if (dst == src && n == 1)
+		return (dst);
+	if (!tsrc && !tdst)
+		return (0);
+	while (n > 0)
+	{
+		*tdst++ = *tsrc++;
+		n--;
+	}
+	return (dst);
+}
+ft_mem_grow.c/  0           0     0     644     1080      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_mem_grow.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/17 12:33:39 by khafni            #+#    #+#             */
+/*   Updated: 2021/02/17 12:34:07 by khafni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void		*ft_mem_grow(void *addr, size_t old_size, size_t new_size)
+{
+	void *tmp;
+
+	tmp = malloc(new_size);
+	ft_memcpy(tmp, addr, old_size);
+	free(addr);
+	return (tmp);
+}
+ft_memmove.c/   0           0     0     644     1311      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:56:20 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/25 15:36:44 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	char		*tdst;
+	const char	*tsrc;
+	char		*enddst;
+	const char	*endsrc;
+
+	tdst = dst;
+	tsrc = src;
+	enddst = tdst + (len - 1);
+	endsrc = tsrc + (len - 1);
+	if (src == 0 && dst == 0)
+		return (0);
+	if ((tdst < tsrc) || (dst == src && len == 1))
+		return (ft_memcpy(dst, src, len));
+	while (len-- > 0)
+		*enddst-- = *endsrc--;
+	return (dst);
+}
+
+ft_memset.c/    0           0     0     644     1085      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:52:56 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/23 00:41:35 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t			i;
+	unsigned char	*ptr;
+
+	i = 0;
+	ptr = b;
+	while (i < len)
+	{
+		ptr[i] = (unsigned char)c;
+		i++;
+	}
+	return (b);
+}
+
+ft_putchar_fd.c/0           0     0     644     970       `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:24:38 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/14 19:14:13 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+ft_putendl_fd.c/0           0     0     644     1000      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 19:04:13 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/15 20:01:54 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}
+ft_putnbr_fd.c/ 0           0     0     644     1288      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 19:19:02 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/15 20:02:50 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	int		size;
+	int		temp;
+
+	size = 1;
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	if (n < 0 && n != -2147483648)
+	{
+		ft_putchar_fd('-', fd);
+		n = -n;
+	}
+	temp = n;
+	while ((temp /= 10) > 0)
+		size *= 10;
+	temp = n;
+	while (size && n != -2147483648)
+	{
+		ft_putchar_fd((temp / size) + '0', fd);
+		temp %= size;
+		size /= 10;
+	}
+}
+ft_putstr_fd.c/ 0           0     0     644     1042      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 19:06:55 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/19 14:26:49 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int		i;
+
+	i = 0;
+	if (s)
+	{
+		while (s[i])
+		{
+			ft_putchar_fd(s[i], fd);
+			i++;
+		}
+	}
+}
+ft_split.c/     0           0     0     644     3516      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/14 18:04:17 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/15 12:48:41 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+#include <stdio.h>
+
+char	*sp = NULL; /* the start position of the string */
+
+char	*ft_strtok(char * str, char *delimiters)
+{
+    int		i = 0;
+    int		len = ft_strlen(delimiters);
+ 
+    /* check in the delimiters */
+    if (len == 0)
+        printf("delimiters are empty\n");
+ 
+    /* if the original string has nothing left */
+    if (!str && !sp)
+    	return NULL;
+ 
+    /* initialize the sp during the first call */
+    if (str && !sp)
+        sp = str;
+ 
+    /* find the start of the substring, skip delimiters */
+    char*	p_start = sp;
+    while (1)
+	{
+		for (i = 0; i < len; i++)
+		{
+            if (*p_start == delimiters[i])
+			{
+            	p_start ++;
+            	break ;
+            }
+        }
+        if (i == len)
+		{
+			sp = p_start;
+			break ;
+        }
+    }
+ 
+    /* return NULL if nothing left */
+    if (*sp == '\0')
+	{
+		sp = NULL;
+		return sp;
+    }
+
+	/* find the end of the substring, and
+		replace the delimiter with null */
+	while (*sp != '\0')
+	{
+		for (i = 0; i < len; i++)
+		{
+			if (*sp == delimiters[i])
+			{
+            	*sp = '\0';
+            	break ;
+			}
+		}
+        sp ++;
+        if (i < len)
+            break ;
+    }
+    return p_start;
+}
+
+static int		number_of_words(char *str, char c)
+{
+	int		nbr;
+	int		i;
+	int		indicator;
+
+	nbr = 0;
+	i = 0;
+	indicator = 0;
+	while (str[i] != '\0')
+	{
+		// if (str[i] == '\\')
+			// i++;
+		if (str[i] != '\0' && str[i] != c)
+		{
+			if (indicator != 1)
+			{
+				nbr++;
+				indicator = 1;
+			}
+		}
+		else
+			indicator = 0;
+		i++;
+	}
+	return (nbr);
+}
+
+static int		word_size(char *str, char c)
+{
+	int		i;
+	int		length;
+
+	i = 0;
+	length = 0;
+	while (str[i] != '\0' && str[i] != c)
+	{
+		length++;
+		i++;
+	}
+	return (length);
+}
+
+static void		fill_string(char *str, char *cas, char c)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != c)
+	{
+		cas[i] = str[i];
+		i++;
+	}
+	cas[i] = '\0';
+}
+
+static char		**fill(char *str, char **tab, char c, int indicator)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	while (str[++i] != '\0')
+		if (str[i] != c)
+		{
+			if (indicator != 1)
+			{
+				if (!(tab[++j] = ft_malloc(1 + word_size((str + i), c))))
+				{
+					while (j--)
+						free(tab[j]);
+					free(tab);
+					return (0);
+				}
+				fill_string(str + i, tab[j], c);
+				indicator = 1;
+			}
+		}
+		else
+			indicator = 0;
+	return (tab);
+}
+
+char			**ft_split(char const *s, char c)
+{
+	char	**tab;
+	char	*str;
+	int		indicator;
+
+	str = (char*)s;
+	indicator = 0;
+	if (!str)
+		return (0);
+	if (!(tab = ft_malloc((number_of_words(str, c) + 1) * 8)))
+		return (0);
+	tab = fill(str, tab, c, indicator);
+	tab[number_of_words(str, c)] = 0;
+	return (tab);
+}
+ft_strchr.c/    0           0     0     644     1046      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:56:48 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/18 16:41:22 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*(char*)s != '\0' && *s != (char)c)
+		s++;
+	if (*(char*)s == (char)c)
+		return ((char*)s);
+	return (0);
+}
+ft_strdup.c/    0           0     0     644     1170      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:57:01 by aabounak          #+#    #+#             */
+/*   Updated: 2019/11/02 15:12:04 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char	*ft_strdup(const char *s1)
+{
+	size_t		len;
+	size_t		i;
+	char		*ptr;
+
+	len = ft_strlen(s1);
+	i = 0;
+	if (!(ptr = (char*)malloc(sizeof(char) * len + 1)))
+		return (0);
+	while (i < len)
+	{
+		ptr[i] = (char)s1[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+ft_strjoin.c/   0           0     0     644     1285      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 17:57:15 by aabounak          #+#    #+#             */
+/*   Updated: 2019/11/02 15:13:07 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if ((s1 == 0 && s2 == 0) || !s1)
+		return (0);
+	if (!(str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
+		return (0);
+	while (s1[i] != '\0')
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+ft_strlcat.c/   0           0     0     644     1309      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/26 17:09:00 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/27 22:52:10 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+size_t		ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	v;
+	size_t	len;
+
+	len = ft_strlen(src);
+	i = 0;
+	if (dst == NULL && size == 0)
+		return (len);
+	while (*dst != '\0' && i < size)
+	{
+		dst++;
+		i++;
+	}
+	v = size - i;
+	if (v == 0)
+		return (i + ft_strlen(src));
+	while (*src != '\0' && v != 1)
+	{
+		*dst++ = *src;
+		v--;
+		src++;
+	}
+	*dst = '\0';
+	return (i + len);
+}
+
+ft_strlcpy.c/   0           0     0     644     1239      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/24 15:45:45 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/24 15:49:05 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+size_t	ft_strlcpy(char *d, const char *s, size_t n)
+{
+	size_t		k;
+	void		*dest;
+
+	dest = d;
+	k = ft_strlen(s);
+	if (n == 0)
+		return (k);
+	if (dest == NULL)
+		return (0);
+	if (n)
+	{
+		while (n - 1 > 0 && *s)
+		{
+			*(unsigned char *)dest++ = *(unsigned char *)s++;
+			n--;
+		}
+	}
+	*(unsigned char *)dest = '\0';
+	return (k);
+}
+
+ft_strlen.c/    0           0     0     644     1026      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:00:38 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/15 15:57:40 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+size_t		ft_strlen(const char *str)
+{
+	size_t		i;
+
+	i = 0;
+	while (*(str + i) != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+ft_strmapi.c/   0           0     0     644     1203      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:12:38 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/19 13:52:44 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	unsigned int	i;
+	char			*str;
+
+	if (!s)
+		return (0);
+	i = 0;
+	if (!(str = (char *)malloc(sizeof(char) * ft_strlen(s) + 1)))
+		return (0);
+	while (s[i])
+	{
+		str[i] = (*f)(i, s[i]);
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+ft_strncmp.c/   0           0     0     644     1234      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:04:34 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/17 15:59:12 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	i = 0;
+	str1 = (unsigned char*)s1;
+	str2 = (unsigned char*)s2;
+	while (i < n)
+	{
+		if (*str1 && (*str1 == *str2))
+		{
+			str1++;
+			str2++;
+		}
+		else
+			return (*str1 - *str2);
+		i++;
+	}
+	return (0);
+}
+ft_strnlen.c/   0           0     0     644     1048      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnlen.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/16 15:16:03 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/16 15:17:13 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+size_t	ft_strnlen(const char *s, size_t maxlen)
+{
+	size_t	i;
+
+	i = 0;
+	while (*s && maxlen > 0)
+	{
+		i++;
+		maxlen--;
+	}
+	return (i);
+}
+ft_strnstr.c/   0           0     0     644     1357      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/24 15:49:43 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/24 15:52:15 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+{
+	size_t		i;
+	size_t		needlelen;
+
+	i = 0;
+	needlelen = ft_strlen(needle);
+	if ((!*needle && !len) || !*needle)
+		return ((char *)haystack);
+	if (len == 0)
+		return (NULL);
+	if (ft_strlen(haystack) < needlelen)
+		return (0);
+	while (i <= len)
+	{
+		if ((!(ft_strncmp((haystack + i), needle, needlelen))))
+			return ((char *)(haystack + i));
+		len--;
+		i++;
+	}
+	return (0);
+}
+
+ft_strrchr.c/   0           0     0     644     1075      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:04:55 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/16 13:55:52 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char	*ft_strrchr(const char *s, int c)
+{
+	int		i;
+
+	i = ft_strlen(s);
+	while (i && s[i] != c)
+		i--;
+	if (s[i] == (char)c)
+		return ((char*)s + i);
+	return (0);
+}
+
+ft_strtrim.c/   0           0     0     644     1593      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:05:07 by aabounak          #+#    #+#             */
+/*   Updated: 2020/12/14 18:17:27 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+static char		*display(char const *s1, int start, int end)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	if (!(str = (char *)ft_malloc(sizeof(char) * ((end + 1) - start) + 1)))
+		return (0);
+	while (start < (end + 1))
+	{
+		str[i] = s1[start];
+		i++;
+		start++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char			*ft_strtrim(char const *s1, char const *set)
+{
+	int		start;
+	int		end;
+	
+	start = 0;
+	if (!s1)
+		return (0);
+	if (set == 0)
+		return (ft_strdup(s1));
+	end = ft_strlen(s1);
+	while (s1[start])
+	{
+		if (0 == (ft_strchr(set, s1[start])))
+			break ;
+		start++;
+	}
+	while (s1[end] != s1[start])
+	{
+		if (0 == (ft_strchr(set, s1[end])))
+			break ;
+		end--;
+	}
+	return (display(s1, start, end));
+}
+
+ft_substr.c/    0           0     0     644     1251      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:05:19 by aabounak          #+#    #+#             */
+/*   Updated: 2019/11/02 14:59:22 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char		*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*ptr;
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	if (start > len)
+		return (ft_strdup(""));
+	if (!(ptr = (char *)malloc(sizeof(char) * (len) + 1)))
+		return (0);
+	while (i < len && s[start + i])
+	{
+		ptr[i] = s[start + i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+ft_tolower.c/   0           0     0     644     991       `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:05:31 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/14 18:05:36 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int		ft_tolower(int c)
+{
+	if (c >= 65 && c <= 90)
+	{
+		c = c + 32;
+		return (c);
+	}
+	return (c);
+}
+
+ft_toupper.c/   0           0     0     644     992       `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/14 18:05:42 by aabounak          #+#    #+#             */
+/*   Updated: 2019/10/14 18:05:46 by aabounak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int		ft_toupper(int c)
+{
+	if (c >= 97 && c <= 122)
+	{
+		c = c - 32;
+		return (c);
+	}
+	return (c);
+}
+rstring.c/      0           0     0     644     1725      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rstring.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/27 16:56:29 by khafni            #+#    #+#             */
+/*   Updated: 2021/02/17 17:23:51 by khafni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+#include <stdlib.h>
+
+t_rstr		rstr_create(int alloc)
+{
+	t_rstr	str;
+
+	str = malloc(sizeof(struct s_rstr));
+	str->alloc = alloc;
+	str->len = 0;
+	str->data = malloc(alloc * sizeof(char));
+	return (str);
+}
+
+void		rstr_destroy(void *rs_)
+{
+	t_rstr	rs;
+
+	rs = (t_rstr)rs_;
+	
+	free(rs->data);
+	free(rs);
+}
+
+void		rstr_set(t_rstr rs, size_t index, char value)
+{
+	size_t new_allc;
+
+	new_allc = (1 + 2 * index);
+	if ((int)index >= rs->alloc)
+	{
+		rs->data = ft_mem_grow(rs->data, rs->alloc, new_allc);
+		rs->alloc = new_allc;
+	}
+	if ((int)index >= rs->len)
+		rs->len = index + 1;
+	*((char*)rs->data + index) = value;
+}
+
+void		rstr_add(t_rstr rs, char value)
+{
+	rstr_set(rs, rs->len, value);
+}
+
+void		rstr_clear(t_rstr rs)
+{
+	int i;
+
+	i = 0;
+	while (i < rs->len)
+	{
+		*((char*)rs->data + i) = '\0';
+		i++;
+	}
+	rs->len = 0;
+}
+
+rstr_methods1.c/0           0     0     644     1413      `
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rstr_methods1.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/17 12:12:05 by khafni            #+#    #+#             */
+/*   Updated: 2021/03/06 16:18:46 by khafni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char	*rstr_to_cstr(t_rstr rs)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = malloc(rs->len + 1);
+	while (i < rs->len)
+	{
+		str[i] = rs->data[i];
+		i++;
+	}
+	str[rs->len] = '\0';
+	return (str);
+}
+
+char    rstr_get(t_rstr rs, int index)
+{
+        if (index < 0 || index >= rs->len)
+                return (-42);
+        return (*(rs->data + index));
+}
+
+t_rstr			cstr_to_rstr(char *cstr)
+{
+	t_rstr rs;
+	int		i;
+
+	i = 0;
+	rs = rstr_create(0);
+	while (cstr[i])
+	{
+		rstr_add(rs, cstr[i]);
+		i++;
+	}
+	return (rs);
+}

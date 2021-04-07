@@ -13,6 +13,7 @@
 #ifndef PIPELINES_H
 # define PIPELINES_H
 # include "mask.h"
+# include "dlist/dlists.h"
 
 /*
 ** A pipeline is a sequence of one or more commands separated by the control operator ‘|’
@@ -52,13 +53,13 @@ typedef struct s_tokens *t_tokens;
 
 struct s_tokens
 {
-	t_arrptr tokens;
-	t_arrptr tokens_masks;	
+	t_dlist tokens;
+	t_dlist tokens_masks;	
 	
 };
 
 
 t_tokens		tokens(t_pipeline pl);
 void			tokens_destroy(t_tokens tks);
-
+void			tokens_split_w_red(t_tokens tks);
 #endif
