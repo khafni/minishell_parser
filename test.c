@@ -23,7 +23,7 @@
 
 int main(int argc, char **argv, char **env)
 {
-    t_arrptr pls = get_pipelines(">>f2 ls>file1 -a");
+    t_arrptr pls = get_pipelines("ls>1");
     //t_arrptr pls = get_pipelines("ls -a > file.1");
     t_tokens tk;
     for (int i = 0; i < pls->len; i++)

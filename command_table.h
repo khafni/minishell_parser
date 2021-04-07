@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/04 11:10:48 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/07 12:03:37 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ struct	s_commands_table
 
 t_commands_table	cmd_table(t_pipeline pl, char **env);
 void                cmd_table_fill(t_commands_table cmdt, t_pipeline pl);
+/*
+**  handle when a command and a redirection symbol are sticked together
+** in one word by splitting them & also splits rederection signs and their files
+** if they're stuck together
+*/
+
 void                cmd_table_fill_tokens(t_commands_table cmdt);
 void                cmd_table_fill_input(t_commands_table cmdt);
 void                cmd_table_fill_output(t_commands_table cmdt);

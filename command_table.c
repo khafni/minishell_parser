@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:49:12 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/04 17:49:02 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/07 11:45:56 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int check_if_ra_plus(char *str)
 		return (1);
 	return (0);
 }
+
+
 
 void                cmd_table_fill_tokens(t_commands_table cmdt)
 {
