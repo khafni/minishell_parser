@@ -135,21 +135,31 @@ int				is_reder(char c)
 
 int				is_red_cmd_non_split(void *token_)
 {
-	char *token;
-	size_t	l;
+	char *token;	
 	int i;
+	int r;
+	int al;
 
 	i = 0;
-	token = (char*)token_;
-	l = ft_strlen(token);	
-	if (token[0] == '<' || token[0] == '>')	
-		return (0);
-	while (token[i] && !is_reder(token[i]))	
-		i++;	
-	if (token[i] == '<' || token[i] == '>')	
+	r = 0;
+	al = 0;
+	token = (char*)token_;	
+	while (token[i])
+	{
+		if (token[i] == '>' || token[i] == '<')
+			r = 1;
+		else
+			al = 1;	
+		i++;
+	}
+	if (r == 1 && al == 1)
 		return (1);
-	return (0);
+	else
+		return (0);
 }
+
+
+
 
 void			tokens_split_w_red(t_tokens tks)
 {
