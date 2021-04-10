@@ -163,8 +163,15 @@ int				is_red_cmd_non_split(void *token_)
 **	cmd and redirections/appnds or redirections/appnds
 **	with the files names into tokens
 */
-void			split_token_w_red(t_tokens tks)
+void			split_token_w_red(char *token)
 {
+	t_rstr rs;
+	t_arrptr	arr;
+
+	rs = rstr_create(0);
+	arr = empty_arrptr_create(free);
+		
+	arrptr_destroy(arr);
 }	
 
 void			tokens_split_w_red(t_tokens tks)
