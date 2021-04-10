@@ -65,6 +65,7 @@ void			dlist_destroy(t_dlist l_)
 		free(c);
 		c = next;	
 	}
+	free(l->sentinel);
 	free(l);
 }
 
