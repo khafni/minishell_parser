@@ -158,8 +158,14 @@ int				is_red_cmd_non_split(void *token_)
 		return (0);
 }
 
-
-
+/*
+**	devide a string that contains a 
+**	cmd and redirections/appnds or redirections/appnds
+**	with the files names into tokens
+*/
+void			split_token_w_red(t_tokens tks)
+{
+}	
 
 void			tokens_split_w_red(t_tokens tks)
 {
@@ -171,6 +177,7 @@ void			tokens_split_w_red(t_tokens tks)
     while (tks->tokens->cursor_n != tks->tokens->sentinel) 
     {
 		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
+
         	printf("%s\n", (char*)tks->tokens->cursor_n->value);
         dlist_move_cursor_to_next(tks->tokens);	
 	}
