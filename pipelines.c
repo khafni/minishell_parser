@@ -167,10 +167,17 @@ void			split_token_w_red(char *token)
 {
 	t_rstr rs;
 	t_arrptr	arr;
+	int			i;
 
+	i = 0;
 	rs = rstr_create(0);
 	arr = empty_arrptr_create(free);
-		
+	while(token[i])
+	{
+		if (token[i] != '>' || token[i] != '<')
+			rstr_add(rs, token[i]);
+		i++;
+	}
 	arrptr_destroy(arr);
 }	
 
@@ -184,7 +191,6 @@ void			tokens_split_w_red(t_tokens tks)
     while (tks->tokens->cursor_n != tks->tokens->sentinel) 
     {
 		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
-
         	printf("%s\n", (char*)tks->tokens->cursor_n->value);
         dlist_move_cursor_to_next(tks->tokens);	
 	}
