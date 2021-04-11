@@ -26,7 +26,7 @@
 
 int main(int argc, char **argv, char **env)
 {
-    t_arrptr pls = get_pipelines("ls>r>f1>f2 ok>32 cat");
+    t_arrptr pls = get_pipelines("ls>r>>f1>f2 ok>32 cat");
     //t_arrptr pls = get_pipelines("ls -a > file.1");
     t_tokens tk;
     for (int i = 0; i < pls->len; i++)

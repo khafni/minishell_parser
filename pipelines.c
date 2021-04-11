@@ -158,11 +158,30 @@ int				is_red_cmd_non_split(void *token_)
 		return (0);
 }
 
+
+void			split_token_w_red_help(char *token, int *i, t_arrptr arr)
+{
+	t_rstr rs;
+
+	rs = rstr_create(1);
+	while (token[*i] && (token[*i] == '>' || token[*i] == '<'))
+		rstr_add(rs, token[(*i)++]);
+	if (rs->len)
+		arrptr_add(arr, rstr_to_cstr(rs));
+	rstr_clear(rs);
+	while (token[*i])
+		rstr_add(rs, token[(*i)++]);
+	if (rs->len)
+		arrptr_add(arr, rstr_to_cstr(rs));
+	rstr_destroy(rs);
+}					
+
 /*
 **	devide a string that contains a 
 **	cmd and redirections/appnds or redirections/appnds
 **	with the files names into tokens
 */
+
 void			split_token_w_red(char *token)
 {
 	t_rstr rs;
@@ -174,10 +193,25 @@ void			split_token_w_red(char *token)
 	arr = empty_arrptr_create(free);
 	while(token[i])
 	{
-		if (token[i] != '>' || token[i] != '<')
+		if (token[i] != '>' && token[i] != '<')
+		{
 			rstr_add(rs, token[i]);
+		}
+		else if (token[i] == '>' || token[i] == '<')
+		{
+			if (rs->len)
+				arrptr_add(arr, rstr_to_cstr(rs));
+			split_token_w_red_help(token, &i, arr);
+			//continue ;
+			rstr_clear(rs);
+			continue ;
+		}
 		i++;
 	}
+	for (int i = 0; i < arr->len; i++)
+	{
+		printf("%s\n", (char*)arrptr_get(arr, i));	
+	}	
 	arrptr_destroy(arr);
 }	
 
@@ -191,7 +225,7 @@ void			tokens_split_w_red(t_tokens tks)
     while (tks->tokens->cursor_n != tks->tokens->sentinel) 
     {
 		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
-        	printf("%s\n", (char*)tks->tokens->cursor_n->value);
+			split_token_w_red((char*)tks->tokens->cursor_n->value);
         dlist_move_cursor_to_next(tks->tokens);	
 	}
 }
