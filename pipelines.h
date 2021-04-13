@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 10:44:46 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/04 10:57:01 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/13 14:05:57 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ struct s_pipeline
 	char	is_after_p_or_sc;
 };
 
-t_pipeline	pipeline(char *cmd_line, char *cmd_line_m, char is_after_p_or_sc);
+t_pipeline		pipeline(char *cmd_line, char *cmd_line_m, char is_after_p_or_sc);
 void			pipeline_destroy(void *pl);
 
 /*
@@ -55,11 +55,11 @@ struct s_tokens
 {
 	t_dlist tokens;
 	t_dlist tokens_masks;	
-	
 };
 
 
 t_tokens		tokens(t_pipeline pl);
 void			tokens_destroy(t_tokens tks);
 void			tokens_split_w_red(t_tokens tks);
+t_arrptr		split_token_w_red(char *token);
 #endif

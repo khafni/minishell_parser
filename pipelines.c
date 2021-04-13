@@ -106,8 +106,6 @@ t_tokens		tokens(t_pipeline pl)
 		}
 		else if (pl->cmd_line_m[i] == 'W' && tmp_str_m->len > 0)
 		{
-			//while(pl->cmd_line_m[i] == 'W')
-				//i++;
 			dlist_pushback(tk->tokens, rstr_to_cstr(tmp_str));
 			dlist_pushback(tk->tokens_masks, rstr_to_cstr(tmp_str_m));
 			rstr_clear(tmp_str);
@@ -126,6 +124,11 @@ t_tokens		tokens(t_pipeline pl)
 	return (tk);
 }
 
+void	tokens_fix_red(t_tokens tks)
+{
+
+}
+
 int				is_reder(char c)
 {
 	if (c == '<' || c == '>')	
@@ -133,7 +136,7 @@ int				is_reder(char c)
 	return (0);
 }
 
-int				is_red_cmd_non_split(void *token_)
+int				is_red_cmd_non_split(char *token_)
 {
 	char *token;	
 	int i;
@@ -182,14 +185,14 @@ void			split_token_w_red_help(char *token, int *i, t_arrptr arr)
 **	with the files names into tokens
 */
 
-void			split_token_w_red(char *token)
+t_arrptr		split_token_w_red(char *token)
 {
 	t_rstr rs;
 	t_arrptr	arr;
 	int			i;
 
-	if (!ft_strlen(token))
-		return ;
+	if (!ft_strlen(token) || !is_red_cmd_non_split(token))
+		return (NULL);
 	i = 0;
 	rs = rstr_create(0);
 	arr = empty_arrptr_create(free);
@@ -204,17 +207,12 @@ void			split_token_w_red(char *token)
 			if (rs->len)
 				arrptr_add(arr, rstr_to_cstr(rs));
 			split_token_w_red_help(token, &i, arr);
-			//continue ;
-			rstr_clear(rs);
+		rstr_clear(rs);
 			continue ;
 		}
 		i++;
 	}
-	for (int i = 0; i < arr->len; i++)
-	{
-		printf("%s\n", (char*)arrptr_get(arr, i));	
-	}	
-	arrptr_destroy(arr);
+	return (arr);
 }	
 
 void			tokens_split_w_red(t_tokens tks)
@@ -225,6 +223,7 @@ void			tokens_split_w_red(t_tokens tks)
 		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
 		{
 			split_token_w_red((char*)tks->tokens->cursor_n->value);
+			//printf("%s\n", (char*)tks->tokens->cursor_n->value);
 			printf("------------\n");
 		}
         dlist_move_cursor_to_next(tks->tokens);	
