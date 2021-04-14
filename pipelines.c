@@ -110,7 +110,6 @@ t_tokens		tokens(t_pipeline pl)
 			dlist_pushback(tk->tokens_masks, rstr_to_cstr(tmp_str_m));
 			rstr_clear(tmp_str);
 			rstr_clear(tmp_str_m);
-
 		}
 		i++;
 	}
@@ -124,10 +123,10 @@ t_tokens		tokens(t_pipeline pl)
 	return (tk);
 }
 
-void	tokens_fix_red(t_tokens tks)
+/* void	tokens_fix_red(t_tokens tks)
 {
 
-}
+} */
 
 int				is_reder(char c)
 {
@@ -214,6 +213,20 @@ t_arrptr		split_token_w_red(char *token)
 	}
 	return (arr);
 }	
+
+void			tokens_rd_expand(t_dlist lst)
+{
+	dlist_move_cursor_to_head(lst);
+	 while (lst->cursor_n != lst->sentinel) 
+    {
+		if (is_red_cmd_non_split(lst->cursor_n->value))
+		{
+			split_token_w_red((char*)lst->cursor_n->value);
+			printf("------------\n");
+		}
+        dlist_move_cursor_to_next(lst->tokens);	
+	}
+}
 
 void			tokens_split_w_red(t_tokens tks)
 {	
