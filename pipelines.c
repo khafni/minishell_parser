@@ -224,7 +224,7 @@ void			tokens_rd_expand(t_dlist lst)
 			split_token_w_red((char*)lst->cursor_n->value);
 			printf("------------\n");
 		}
-        dlist_move_cursor_to_next(lst->tokens);	
+        dlist_move_cursor_to_next(lst);	
 	}
 }
 
@@ -242,6 +242,7 @@ void			tokens_split_w_red(t_tokens tks)
         dlist_move_cursor_to_next(tks->tokens);	
 	}
 }
+
 
 void			tokens_destroy(t_tokens tks)
 {
