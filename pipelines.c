@@ -190,8 +190,8 @@ t_arrptr		split_token_w_red(char *token)
 	t_arrptr	arr;
 	int			i;
 
-	if (!ft_strlen(token) || !is_red_cmd_non_split(token))
-		return (NULL);
+	/* if (!ft_strlen(token) || !is_red_cmd_non_split(token))
+		return (NULL); */
 	i = 0;
 	rs = rstr_create(0);
 	arr = empty_arrptr_create(free);
@@ -216,13 +216,21 @@ t_arrptr		split_token_w_red(char *token)
 
 void			tokens_rd_expand(t_dlist lst)
 {
+	int i = 0;
 	dlist_move_cursor_to_head(lst);
 	 while (lst->cursor_n != lst->sentinel) 
     {
 		if (is_red_cmd_non_split(lst->cursor_n->value))
 		{
-			split_token_w_red((char*)lst->cursor_n->value);
+			//t_arrptr arr =  split_token_w_red((char*)lst->cursor_n->value);
+			i = 0;
+			/* while (i < arr->len)
+			{
+				printf("%s\n", arrptr_get(arr, i));
+				i++;
+			} */
 			printf("------------\n");
+			//arrptr_destroy(arr);
 		}
         dlist_move_cursor_to_next(lst);	
 	}
@@ -231,17 +239,36 @@ void			tokens_rd_expand(t_dlist lst)
 void			tokens_split_w_red(t_tokens tks)
 {	
 	dlist_move_cursor_to_head(tks->tokens);
+	
+    while (tks->tokens->cursor_n != tks->tokens->sentinel) 
+    {
+		//dlist_remove_after_cursor(tks->tokens, 1);
+		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
+		{
+			//tokens_rd_expand(tks->tokens);
+			//t_arrptr arr =  split_token_w_red((char*)tks->tokens->cursor_n->value);
+			printf("%s\n", (char*)tks->tokens->cursor_n->value);
+			//printf("------------\n");
+			dlist_remove_after_cursor(tks->tokens, 1);
+			dlist_move_cursor_to_head(tks->tokens);	
+			//arrptr_destroy(arr);
+		}
+		//dlist_remove_after_cursor(tks->tokens, 1);
+		//dlist_move_cursor_to_head(tks->tokens);	
+        dlist_move_cursor_to_next(tks->tokens);	
+	}
+	
+	dlist_move_cursor_to_head(tks->tokens);
     while (tks->tokens->cursor_n != tks->tokens->sentinel) 
     {
 		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
 		{
-			split_token_w_red((char*)tks->tokens->cursor_n->value);
-			//printf("%s\n", (char*)tks->tokens->cursor_n->value);
+			printf("%s\n", (char*)tks->tokens->cursor_n->value);
 			printf("------------\n");
 		}
         dlist_move_cursor_to_next(tks->tokens);	
 	}
-}
+ }
 
 
 void			tokens_destroy(t_tokens tks)
