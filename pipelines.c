@@ -135,6 +135,9 @@ int				is_reder(char c)
 	return (0);
 }
 
+/*
+** is a token composed of a words and rederection signs
+*/
 int				is_red_cmd_non_split(char *token_)
 {
 	char *token;	
@@ -235,7 +238,10 @@ void			tokens_rd_expand(t_dlist lst)
         dlist_move_cursor_to_next(lst);	
 	}
 }
-
+/*
+** takes the splitted tokens and split them again with respect
+** to rederection
+*/
 void			tokens_split_w_red(t_tokens tks)
 {	
 	dlist_move_cursor_to_head(tks->tokens);
@@ -249,13 +255,14 @@ void			tokens_split_w_red(t_tokens tks)
 			//t_arrptr arr =  split_token_w_red((char*)tks->tokens->cursor_n->value);
 			printf("%s\n", (char*)tks->tokens->cursor_n->value);
 			//printf("------------\n");
-			dlist_remove_after_cursor(tks->tokens, 1);
-			dlist_move_cursor_to_head(tks->tokens);	
+			//dlist_remove_after_cursor(tks->tokens, 1);
+			//dlist_move_cursor_to_head(tks->tokens);	
 			//arrptr_destroy(arr);
 		}
-		//dlist_remove_after_cursor(tks->tokens, 1);
-		//dlist_move_cursor_to_head(tks->tokens);	
-        dlist_move_cursor_to_next(tks->tokens);	
+
+		dlist_remove_after_cursor(tks->tokens, 1);
+		dlist_move_cursor_to_head(tks->tokens);	
+        //dlist_move_cursor_to_next(tks->tokens);	
 	}
 	
 	dlist_move_cursor_to_head(tks->tokens);
