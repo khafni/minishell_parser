@@ -217,6 +217,9 @@ t_arrptr		split_token_w_red(char *token)
 	return (arr);
 }	
 
+/*
+** the funciton that shall expand a token that got a mix of words and riderection signs
+*/ 
 void			tokens_rd_expand(t_dlist lst)
 {
 	int i = 0;
@@ -238,6 +241,26 @@ void			tokens_rd_expand(t_dlist lst)
         dlist_move_cursor_to_next(lst);	
 	}
 }
+
+void remplace_cursor_node_with_array(t_dlist l, t_arrptr arr)
+{
+	int i = 0;
+
+	dlist_remove_before_cursor(l, 1);
+	//dlist_move_cursor_to_head(l);
+   // while (l->cursor_n != l->sentinel)
+    //{
+		/* if (l->cursor_n != l->sentinel)
+        	dlist_remove_after_cursor(l, 1); */
+	 	while (i < arr->len)
+		{
+			dlist_insert_before_cursor(l, arrptr_get(arr, i));
+			i++;
+		}
+    //    dlist_move_cursor_to_next(l);
+    //}
+}
+
 /*
 ** takes the splitted tokens and split them again with respect
 ** to rederection
@@ -245,34 +268,20 @@ void			tokens_rd_expand(t_dlist lst)
 void			tokens_split_w_red(t_tokens tks)
 {	
 	dlist_move_cursor_to_head(tks->tokens);
-	
     while (tks->tokens->cursor_n != tks->tokens->sentinel) 
     {
 		//dlist_remove_after_cursor(tks->tokens, 1);
 		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
 		{
 			//tokens_rd_expand(tks->tokens);
-			//t_arrptr arr =  split_token_w_red((char*)tks->tokens->cursor_n->value);
-			printf("%s\n", (char*)tks->tokens->cursor_n->value);
-			//printf("------------\n");
-			//dlist_remove_after_cursor(tks->tokens, 1);
-			//dlist_move_cursor_to_head(tks->tokens);	
+			t_arrptr arr =  split_token_w_red((char*)tks->tokens->cursor_n->value);
+			remplace_cursor_node_with_array(tks->tokens, arr);
+			/* for (int i = 0; i < arr->len; i++)
+				printf("%s\n", arrptr_get(arr, i)); */	
 			//arrptr_destroy(arr);
 		}
-
-		dlist_remove_after_cursor(tks->tokens, 1);
-		dlist_move_cursor_to_head(tks->tokens);	
-        //dlist_move_cursor_to_next(tks->tokens);	
-	}
-	
-	dlist_move_cursor_to_head(tks->tokens);
-    while (tks->tokens->cursor_n != tks->tokens->sentinel) 
-    {
-		if (is_red_cmd_non_split(tks->tokens->cursor_n->value))
-		{
-			printf("%s\n", (char*)tks->tokens->cursor_n->value);
-			printf("------------\n");
-		}
+		//dlist_remove_after_cursor(tks->tokens, 1);
+		//dlist_move_cursor_to_head(tks->tokens);	
         dlist_move_cursor_to_next(tks->tokens);	
 	}
  }
