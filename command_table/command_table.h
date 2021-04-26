@@ -6,15 +6,15 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/07 12:03:37 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/26 15:10:09 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_TABLE_H
 # define COMMAND_TABLE_H
-# include "CPCA/generic_parrays/garrptr.h"
-# include "pipelines.h"
-# include "dlist/dlists.h"
+# include "../CPCA/generic_parrays/garrptr.h"
+# include "../pipelines.h"
+# include "../dlist/dlists.h"
 
 typedef	struct	s_commands_table *t_commands_table;
 

@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 10:44:46 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/13 14:05:57 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/26 13:18:21 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPELINES_H
 # include "mask.h"
 # include "dlist/dlists.h"
+# include "redirection_splitting/reder_split.h"
 
 /*
 ** A pipeline is a sequence of one or more commands separated by the control operator ‘|’
@@ -60,6 +61,4 @@ struct s_tokens
 
 t_tokens		tokens(t_pipeline pl);
 void			tokens_destroy(t_tokens tks);
-void			tokens_split_w_red(t_tokens tks);
-t_arrptr		split_token_w_red(char *token);
 #endif
