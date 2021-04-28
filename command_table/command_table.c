@@ -45,5 +45,12 @@ void                cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 
 void                cmd_table_fill_tokens(t_commands_table cmdt)
 {
-	
+	t_tokens up;
+
+	up = cmdt->tokens_unproccessed;
+	while (up->tokens->cursor_n != up->tokens->sentinel)
+	{
+		
+		dlist_move_cursor_to_next(up->tokens);
+	}
 }
