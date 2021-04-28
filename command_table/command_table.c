@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:49:12 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/26 16:21:11 by khafni           ###   ########.fr       */
+/*   Updated: 2021/04/28 15:33:02 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,48 @@ void                cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 	//cmd_table_fill_output(cmdt, tks);
 	//cmd_table_fill_append(cmdt, tks);
 }
+int					is_normal_token(t_commands_table cmdt)
+{
+	t_tokens up;
+	char *nvalue;
+	char *pvalue;
+
+	up = cmdt->tokens_unproccessed;
+	//value = (char*)(up->tokens->cursor_n->value);
+	if (up->tokens->cursor_p == up->tokens->sentinel)
+	{
+		if (*(char*)(up->tokens->cursor_n->value) == '>'
+		|| *(char*)(up->tokens->cursor_n->value) == '<')
+			return (0);
+		else
+			return (1);
+	}	
+	else if (up->tokens->cursor_n == up->tokens->sentinel)
+	{
+		if (*(char*)(up->tokens->cursor_p->value) == '>'
+		|| *(char*)(up->tokens->cursor_p->value) == '<')
+			return (0);
+		else
+			return (1);
+	}
+	else
+	{
+		if (*(char*)(up->tokens->cursor_p->value) == '>'
+		|| *(char*)(up->tokens->cursor_p->value) == '<')
+			return (0);
+		return (1);
+	}	
+}
 
 void                cmd_table_fill_tokens(t_commands_table cmdt)
 {
 	t_tokens up;
 
 	up = cmdt->tokens_unproccessed;
+	dlist_move_cursor_to_head(up->tokens);
 	while (up->tokens->cursor_n != up->tokens->sentinel)
 	{
-		
+		printf("%s end\n", up->tokens->cursor_n->value);
 		dlist_move_cursor_to_next(up->tokens);
 	}
 }
