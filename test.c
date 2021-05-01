@@ -7,7 +7,8 @@
 
 int main(int argc, char **argv, char **env)
 {
-    t_arrptr pls = get_pipelines("wc ok>r ls>r>>f1>f2 cat f | ok");
+    //t_arrptr pls = get_pipelines(">> a_f1 <i_f1 tok1 tok2 <i_f2 tok3 <i_f3 tok4>o_f1>>a_f2>o_f2 tok5 tok6 < i_f4 >> a_f3 | > o_f3 lol >o_f4>>a_f4");
+    t_arrptr pls = get_pipelines(">> a_f1 <i_f1 tok1 tok2 <i_f2 tok3 <i_f3 tok4>o_f1>>a_f2>o_f2 tok5 tok6 < i_f4 >> a_f3 | > o_f3 tok7 >o_f4>>a_f4");
     t_commands_table ct = NULL;
     //t_arrptr pls = get_pipelines("ls -a > file.1");
     t_tokens tk;
@@ -19,8 +20,27 @@ int main(int argc, char **argv, char **env)
         ct = cmd_table(p, env);
         cmd_table_fill(ct, p);
         dlist_move_cursor_to_head(tks->tokens_masks);
+
+        /* for (int i = 0; i < ct->input_files->len; i++)
+        {
+            printf("%s end\n", arrptr_get(ct->input_files, i));
+        } */
+
+        /* for (int i = 0; i < ct->output_files->len; i++)
+        {
+            printf("%s end\n", arrptr_get(ct->output_files, i));
+        } */
+
+        /* for (int i = 0; i < ct->tokens->len; i++)
+        {
+            printf("%s end\n", arrptr_get(ct->tokens, i));
+        } */
+
+        for (int i = 0; i < ct->append_files->len; i++)
+        {
+            printf("%s end\n", arrptr_get(ct->append_files, i));
+        }
         cmd_table_destroy(ct);
-        //printf("%s\n", p->cmd_line_m);
     }
     return (0);
 }

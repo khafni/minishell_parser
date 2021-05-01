@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/26 15:10:09 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/01 16:27:35 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ struct	s_commands_table
     t_arrptr        input_files;
     t_arrptr        output_files;
     t_arrptr        append_files;
+    char	        is_after_p_or_sc;
 };
 
 t_commands_table	cmd_table(t_pipeline pl, char **env);

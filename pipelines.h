@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 10:44:46 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/26 13:18:21 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/01 15:01:19 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ struct s_pipeline
 t_pipeline		pipeline(char *cmd_line, char *cmd_line_m, char is_after_p_or_sc);
 void			pipeline_destroy(void *pl);
 
-/*
-** TODO : switch from t_arrptr to t_dlist because t_list are non functional
-*/
 t_arrptr			get_pipelines(char *str);
 typedef struct s_tokens *t_tokens;
 
