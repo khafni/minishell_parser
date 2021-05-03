@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/01 16:27:35 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/03 16:59:27 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void                cmd_table_fill_input(t_commands_table cmdt);
 void                cmd_table_fill_output(t_commands_table cmdt);
 void                cmd_table_fill_append(t_commands_table cmdt);
 
-void				cmd_table_destroy(t_commands_table cmd_tab);
-
-
-
+//void				cmd_table_destroy(t_commands_table cmd_tab);
+void				cmd_table_destroy(void *cmd_tab_);
 #endif

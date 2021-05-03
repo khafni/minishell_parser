@@ -22,11 +22,15 @@ t_commands_table	cmd_table(t_pipeline pl, char **env)
 	ct->input_files = empty_arrptr_create(free);
 	ct->output_files = empty_arrptr_create(free);
 	ct->append_files = empty_arrptr_create(free);
+	ct->is_after_p_or_sc = pl->is_after_p_or_sc;
 	return (ct);
 }
 
-void				cmd_table_destroy(t_commands_table cmd_tab)
+void				cmd_table_destroy(void *cmd_tab_)
 {
+	t_commands_table cmd_tab;
+
+	cmd_tab = (t_commands_table)cmd_tab_;
 	arrptr_destroy(cmd_tab->tokens);	
 	arrptr_destroy(cmd_tab->input_files);	
 	arrptr_destroy(cmd_tab->output_files);	
