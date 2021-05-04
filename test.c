@@ -17,5 +17,6 @@ int main(int argc, char **argv, char **env)
         }
         dlist_move_cursor_to_next(c_lists);
     }
+    cmd_tables_destroy(c_lists);
     return (0);
 }
