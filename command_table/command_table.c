@@ -16,7 +16,7 @@ t_commands_table	cmd_table(t_pipeline pl, char **env)
 {
 	t_commands_table	ct;
 	
-	ct = malloc(sizeof(struct s_commands_table));
+	ct = malloc(sizeof(struct s_commands_table));	
 	ct->tokens_unproccessed = tokens(pl);
 	ct->tokens = empty_arrptr_create(free);
 	ct->input_files = empty_arrptr_create(free);
@@ -31,6 +31,8 @@ void				cmd_table_destroy(void *cmd_tab_)
 	t_commands_table cmd_tab;
 
 	cmd_tab = (t_commands_table)cmd_tab_;
+	
+	tokens_destroy(cmd_tab->tokens_unproccessed);
 	arrptr_destroy(cmd_tab->tokens);	
 	arrptr_destroy(cmd_tab->input_files);	
 	arrptr_destroy(cmd_tab->output_files);	

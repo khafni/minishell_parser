@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "libft/libft.h"
 #include "command_table_generator.h"
 
 int main(int argc, char **argv, char **env)
@@ -13,7 +12,7 @@ int main(int argc, char **argv, char **env)
         cmd = c_lists->cursor_n->value;
         for (int i = 0; i < cmd->tokens->len; i++)
         {
-            printf("%s end\n", arrptr_get(cmd->tokens, i));
+            printf("%s end\n", (char*)arrptr_get(cmd->tokens, i));
         }
         dlist_move_cursor_to_next(c_lists);
     }

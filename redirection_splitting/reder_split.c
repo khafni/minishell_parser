@@ -79,6 +79,7 @@ t_arrptr		split_token_w_red(char *token)
 		}
 		i++;
 	}
+	rstr_destroy(rs);
 	return (arr);
 }
 

@@ -31,6 +31,7 @@ t_dlist     cmd_tables(char *parsing_text)
         dlist_pushback(c_tables, ct);
         i++;
     }
+    arrptr_destroy(pls);
     return (c_tables);
 }
 
