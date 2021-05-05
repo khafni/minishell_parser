@@ -20,10 +20,8 @@ t_pipeline	pipeline(char *cmd_line, char *cmd_line_m, char is_after_p_or_sc)
 	pl->cmd_line = cmd_line;
 	pl->cmd_line_m = cmd_line_m;
 	pl->is_after_p_or_sc = is_after_p_or_sc;
-
 	return (pl);
 }
-
 
 void			pipeline_destroy(void *pl_)
 {

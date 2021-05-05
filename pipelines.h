@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 10:44:46 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/01 15:01:19 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/05 12:13:07 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ typedef struct s_tokens *t_tokens;
 struct s_tokens
 {
 	t_dlist tokens;
-	t_dlist tokens_masks;	
+	t_dlist tokens_masks;
 };
-
 
 t_tokens		tokens(t_pipeline pl);
 void			tokens_destroy(t_tokens tks);
