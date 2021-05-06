@@ -5,7 +5,8 @@
 int main(int argc, char **argv, char **env)
 {
     t_commands_table cmd;
-    t_dlist c_lists = cmd_tables(">> a_f1 <i_f1 \"tok1 tok2\" <i_f2 tok3 <i_f3 tok4>o_f1>>a_f2>o_f2 tok5 tok6 < i_f4 >> a_f3 | > o_f3 tok7 >o_f4>>a_f4 ; htop");
+    t_dlist c_lists = cmd_tables(">> a_f1 <i_f1 tok1 tok2 \"<i_f2\" tok3 <i_f3 tok4>o_f1>>a_f2>o_f2 tok5 tok6 < i_f4 >> a_f3 | > o_f3 tok7 >o_f4>>a_f4 ; \"htop -o >> -l idontknow\" something");
+    //t_dlist c_lists = cmd_tables("\"i_f2>ok\"");
     dlist_move_cursor_to_head(c_lists);
     while (c_lists->cursor_n != c_lists->sentinel)
     {

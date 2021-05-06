@@ -154,7 +154,7 @@ int					is_normal_token(t_commands_table cmdt)
 	t_tokens up;		
 
 	up = cmdt->tokens_unproccessed;	
-	if (up->tokens->cursor_p == up->tokens->sentinel)
+	/* if (up->tokens->cursor_p == up->tokens->sentinel)
 	{
 		if (*(char*)(up->tokens->cursor_n->value) == '>'
 		|| *(char*)(up->tokens->cursor_n->value) == '<')
@@ -173,7 +173,30 @@ int					is_normal_token(t_commands_table cmdt)
 		|| (*(char*)(up->tokens->cursor_n->value) == '<')
 		|| (*(char*)(up->tokens->cursor_n->value) == '>'))	
 			return (0);
-		return (1);	
+		return (1);	 */
+
+
+	if (up->tokens_masks->cursor_p == up->tokens_masks->sentinel)
+	{
+		if (*(char*)(up->tokens_masks->cursor_n->value) == '>'
+		|| *(char*)(up->tokens_masks->cursor_n->value) == '<')
+			return (0);	
+		return (1);
+	}	
+	else if (up->tokens_masks->cursor_n == up->tokens_masks->sentinel)
+	{
+		if (*(char*)(up->tokens_masks->cursor_p->value) == '>'
+		|| *(char*)(up->tokens_masks->cursor_p->value) == '<')
+			return (0);	
+		return (1);
+	}	
+	if ((*(char*)(up->tokens_masks->cursor_p->value) == '>'
+	|| *(char*)(up->tokens_masks->cursor_p->value) == '<')
+	|| (*(char*)(up->tokens_masks->cursor_n->value) == '<')
+	|| (*(char*)(up->tokens_masks->cursor_n->value) == '>'))	
+		return (0);
+	return (1);	
+
 }
 
 void                cmd_table_fill_tokens(t_commands_table cmdt)
@@ -181,11 +204,23 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 	t_tokens up;
 
 	up = cmdt->tokens_unproccessed;
+
+/* 	dlist_move_cursor_to_head(up->tokens_masks);
+	while (up->tokens_masks->cursor_n != up->tokens_masks->sentinel)
+	{
+		if (is_normal_token(cmdt))
+			arrptr_add(cmdt->tokens, ft_strdup(up->tokens_masks->cursor_n->value));	
+		dlist_move_cursor_to_next(up->tokens_masks);
+	} */
+
 	dlist_move_cursor_to_head(up->tokens);
+	dlist_move_cursor_to_head(up->tokens_masks);
 	while (up->tokens->cursor_n != up->tokens->sentinel)
 	{
 		if (is_normal_token(cmdt))
-			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursor_n->value));
+			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursor_n->value));	
 		dlist_move_cursor_to_next(up->tokens);
+		dlist_move_cursor_to_next(up->tokens_masks);
+
 	}
 }
