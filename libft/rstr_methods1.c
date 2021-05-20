@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 12:12:05 by khafni            #+#    #+#             */
-/*   Updated: 2021/03/06 16:18:46 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/20 11:51:23 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,18 @@ t_rstr			cstr_to_rstr(char *cstr)
 		i++;
 	}
 	return (rs);
+}
+
+
+void			cstr_to_rstr_without_n_rs(char *src, t_rstr dst)
+{
+	int		i;
+	
+	rstr_clear(dst);
+	i = 0;
+	while (src[i])
+	{
+		rstr_add(dst, src[i]);
+		i++;
+	}
 }

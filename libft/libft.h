@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 12:58:09 by aabounak          #+#    #+#             */
-/*   Updated: 2021/03/06 16:19:02 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/20 11:50:27 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,9 @@ void			rstr_clear(t_rstr rs);
 char			*rstr_to_cstr(t_rstr rs);
 char    		rstr_get(t_rstr rs, int index);
 t_rstr			cstr_to_rstr(char *cstr);
+/*
+**	copy a c string to a resizble string without making
+** a new resizble string in memory
+*/
+void			cstr_to_rstr_without_n_rs(char *src, t_rstr dst);
 #endif

@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/03 16:59:27 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/20 16:49:00 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "../pipelines.h"
 # include "../dlist/dlists.h"
 
+/*
+** private struct and methods
+*/
 typedef	struct	s_commands_table *t_commands_table;
 
 struct	s_commands_table
@@ -27,6 +30,8 @@ struct	s_commands_table
     t_arrptr        append_files;
     char	        is_after_p_or_sc;
 };
+
+
 
 t_commands_table	cmd_table(t_pipeline pl, char **env);
 void                cmd_table_fill(t_commands_table cmdt, t_pipeline pl);
@@ -43,4 +48,20 @@ void                cmd_table_fill_append(t_commands_table cmdt);
 
 //void				cmd_table_destroy(t_commands_table cmd_tab);
 void				cmd_table_destroy(void *cmd_tab_);
+
+/*
+** public struct and methods
+*/
+
+typedef struct s_command
+{
+	char	**tokens;
+	char	**input_files;
+	char	**output_files;
+	char	**append_files;
+}				t_command;
+
+t_command	*command_table(t_commands_table cmd);
+void		command_table_destroy(void *cmd_tab_);
+
 #endif

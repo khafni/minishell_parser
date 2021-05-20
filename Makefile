@@ -1,7 +1,7 @@
-SRCS = ./CPCA/CPCA.a ./libft/libft.a ./dlist/*.c ./mask.c ./pipelines.c ./redirection_splitting/*.c ./command_table/*.c command_table_generator.c ./test.c
+SRCS = ./CPCA/CPCA.a ./libft/libft.a ./dlist/*.c ./mask.c ./pipelines.c ./redirection_splitting/*.c ./command_table/*.c command_table_generator.c ./main.c
 NAME	= miniSHELL 
 CC	 = gcc
-CFLAGS	 =
+CFLAGS	 = -ltermcap
 
 all:$(NAME)
 $(NAME):

@@ -41,8 +41,7 @@ void				cmd_table_destroy(void *cmd_tab_)
 }
 
 void                cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
-{	
-	
+{
 	cmd_table_fill_tokens(cmdt);	
 	cmd_table_fill_input(cmdt);
 	cmd_table_fill_output(cmdt);
@@ -223,4 +222,92 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 		dlist_move_cursor_to_next(up->tokens_masks);
 
 	}
+}
+
+
+
+t_command	*command_table(t_commands_table cmd)
+{
+	t_commands_table cmd;
+	t_command	*command;
+	int			i;
+		
+	command = (t_command *)malloc(sizeof(t_command));
+	command->tokens = malloc(cmd->tokens->len + 1);
+	command->tokens = malloc(cmd->input_files->len + 1);
+	command->tokens = malloc(cmd->output_files->len + 1);
+	command->tokens = malloc(cmd->append_files->len + 1);
+	i = 0;
+	while (i < cmd->tokens->len)
+	{
+		command->tokens[i] = arrptr_get(cmd->tokens, i);
+		i++;
+	}
+	command->tokens[i] = NULL;
+	i = 0;
+	while (i < cmd->input_files->len)
+	{
+		command->input_files[i] = arrptr_get(cmd->input_files, i);
+		i++;
+	}
+	command->input_files[i] = NULL;
+	i = 0;
+	while (i < cmd->output_files->len)
+	{
+		command->output_files[i] = arrptr_get(cmd->output_files, i);
+		i++;
+	}
+	command->output_files[i] = NULL;
+	i = 0;
+	while (i < cmd->append_files->len)
+	{
+		command->append_files[i] = arrptr_get(cmd->append_files, i);
+		i++;
+	}
+	command->append_files[i] = NULL;
+	return (command);
+}
+
+void		command_table_destroy_helper(t_command *cmd_tab)
+{
+	int i;
+
+	i = 0;
+	while (cmd_tab->output_files[i])
+	{
+		free(cmd_tab->output_files[i]);
+		i++;
+	}
+	i = 0;
+	while (cmd_tab->append_files[i])
+	{
+		free(cmd_tab->append_files[i]);
+		i++;
+	}
+	free(cmd_tab->tokens);
+	free(cmd_tab->input_files);
+	free(cmd_tab->output_files);
+	free(cmd_tab->append_files);
+	free(cmd_tab);
+}
+
+void		command_table_destroy(void *cmd_tab_)
+{
+	int			i;
+	t_command	*cmd_tab;
+
+	cmd_tab = (t_command*)cmd_tab_;
+	i = 0;
+	while (cmd_tab->tokens[i])
+	{
+		free(cmd_tab->tokens[i]);
+		i++;
+	}
+	i = 0;	
+	while (cmd_tab->input_files[i])
+	{
+		free(cmd_tab->input_files[i]);
+		i++;
+	}
+	command_table_destroy_helper(cmd_tab);
 }

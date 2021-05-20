@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garrptr.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khafni <khafni@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 00:23:00 by khafni            #+#    #+#             */
-/*   Updated: 2020/12/23 15:09:05 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/20 15:46:12 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,5 @@ void			arrptr_set(t_arrptr a, int index, void *obj);
 ** (c++ vectors push back method)
 */
 void			arrptr_add(t_arrptr a, void *obj);
-
-/*
-**	iterate over every element of the array and apply a function on it
-*/
-
 
 #endif

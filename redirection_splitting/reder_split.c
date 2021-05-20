@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 12:29:39 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/06 15:59:36 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/20 15:03:05 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void			tokens_split_w_red(t_dlist tokens)
     {
 		if (is_red_cmd_non_split(tokens->cursor_n->value))
 		{
-			printf("\nLOVEMAKONNEN\n");
 			t_arrptr arr =  split_token_w_red((char*)tokens->cursor_n->value);
 			remplace_cursor_node_with_array(tokens, arr);
 			dlist_move_cursor_to_head(tokens);
