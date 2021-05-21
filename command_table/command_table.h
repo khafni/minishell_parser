@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/20 16:49:00 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/21 13:37:52 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_command
 	char	**input_files;
 	char	**output_files;
 	char	**append_files;
+    char	is_after_p_or_sc;
 }				t_command;
 
 t_command	*command_table(t_commands_table cmd);

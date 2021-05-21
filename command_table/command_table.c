@@ -18,10 +18,10 @@ t_commands_table	cmd_table(t_pipeline pl, char **env)
 	
 	ct = malloc(sizeof(struct s_commands_table));	
 	ct->tokens_unproccessed = tokens(pl);
-	ct->tokens = empty_arrptr_create(free);
-	ct->input_files = empty_arrptr_create(free);
-	ct->output_files = empty_arrptr_create(free);
-	ct->append_files = empty_arrptr_create(free);
+	ct->tokens = empty_arrptr_create(NULL);
+	ct->input_files = empty_arrptr_create(NULL);
+	ct->output_files = empty_arrptr_create(NULL);
+	ct->append_files = empty_arrptr_create(NULL);
 	ct->is_after_p_or_sc = pl->is_after_p_or_sc;
 	return (ct);
 }
@@ -228,15 +228,15 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 
 t_command	*command_table(t_commands_table cmd)
 {
-	t_commands_table cmd;
+	//t_commands_table cmd;
 	t_command	*command;
 	int			i;
 		
 	command = (t_command *)malloc(sizeof(t_command));
-	command->tokens = malloc(cmd->tokens->len + 1);
-	command->tokens = malloc(cmd->input_files->len + 1);
-	command->tokens = malloc(cmd->output_files->len + 1);
-	command->tokens = malloc(cmd->append_files->len + 1);
+	command->tokens = malloc(sizeof(char*) * (cmd->tokens->len + 1));
+	command->input_files = malloc(sizeof(char*) * (cmd->input_files->len + 1));
+	command->output_files = malloc((sizeof(char*) * cmd->output_files->len + 1));
+	command->append_files = malloc((sizeof(char*) * cmd->append_files->len + 1));
 	i = 0;
 	while (i < cmd->tokens->len)
 	{
@@ -265,6 +265,7 @@ t_command	*command_table(t_commands_table cmd)
 		i++;
 	}
 	command->append_files[i] = NULL;
+	command->is_after_p_or_sc = cmd->is_after_p_or_sc;
 	return (command);
 }
 

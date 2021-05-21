@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/20 17:24:17 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/21 14:31:50 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,47 +39,34 @@ t_dlist     cmd_tables(char *parsing_text)
     return (c_tables);
 }
 
-
 void        cmd_tables_destroy(t_dlist cmd_tables_list)
 {
     dlist_destroy(cmd_tables_list);
 }
 
 /*
-** private struct and methods
+** public struct and methods
 */
 
-t_cmd_tables_array  *cmd_tables_array(char *parsing_text)
+t_dlist  cmd_tables_list(char *parsing_text)
 {
-    t_dlist list;
-    t_cmd_tables_array *cmds_arr;
-    int             i;
+    t_dlist list_;
+    t_commands_table c_tables_tmp;
     
-    i = 0;
-    cmds_arr = malloc(sizeof(t_cmd_tables_array));
-    list = cmd_tables(parsing_text);
-    cmds_arr->n_commands = list->len;
-    cmds_arr->commands = malloc(cmds_arr->n_commands + 1);
-    dlist_move_cursor_to_head(list);
-    while (list->cursor_n != list->sentinel)
+    list_ = cmd_tables(parsing_text);
+    dlist_move_cursor_to_head(list_);
+    while (list_->cursor_n != list_->sentinel)
     {
-        cmds_arr->commands[i] = list->cursor_n->value; 
-        dlist_move_cursor_to_next(list);
-        i++;
+        c_tables_tmp =  list_->cursor_n->value;
+        list_->cursor_n->value = command_table(c_tables_tmp);
+        cmd_table_destroy(c_tables_tmp);
+        dlist_move_cursor_to_next(list_);
     }
-    cmds_arr->commands[i] = NULL; 
-    dlist_destroy(list);
+    list_->destroy = command_table_destroy;
+    return (list_);
 }
 
-void cmd_tables_array_destroy(t_cmd_tables_array *cmds_array)
+void cmd_tables_list_destroy(t_dlist cmds_array)
 {
-    int i;
-
-    i = 0;
-    while (i < cmds_array->n_commands)
-    {
-        command_table_destroy(cmds_array->commands[i]);
-        i++;
-    }
-    free(cmds_array);
+    dlist_destroy(cmds_array);
 }

@@ -7,22 +7,32 @@
 #define KEY_DOWN_ -72
 # define KEY_REMOVE 127
 
-/* int main(int argc, char **argv, char **env)
+int main(int argc, char **argv, char **env)
 {
-    t_commands_table cmd;
-    t_dlist c_lists = cmd_tables(">> a_f1 <i_f1 tok1 tok2 \"<i_f2\" tok3 <i_f3 tok4>o_f1>>a_f2>o_f2 tok5 tok6 < i_f4 >> a_f3 | > o_f3 tok7 >o_f4>>a_f4 ; \"htop -o >> -l idontknow\" something");
+    t_command *cmd;
+	int i = 0;
+    t_dlist c_lists = cmd_tables_list(">> a_f1 <i_f1 \"tok1 tok2\" <i_f2 tok3 <i_f3 tok4>o_f1>>a_f2>o_f2 tok5 tok6 < i_f4 >> a_f3 | > o_f3 tok7 >o_f4>>a_f4 ; \"htop -o >> -l idontknow\" something");
     //t_dlist c_lists = cmd_tables("\"i_f2>ok\"");
     dlist_move_cursor_to_head(c_lists);
     while (c_lists->cursor_n != c_lists->sentinel)
     {
+		i = 0;
         cmd = c_lists->cursor_n->value;
-        for (int i = 0; i < cmd->tokens->len; i++)
-            printf("%s end\n", (char*)arrptr_get(cmd->tokens, i));
+		while (cmd->tokens[i])
+		{
+            printf("%s end\n", cmd->tokens[i]);
+			if (cmd->is_after_p_or_sc == IS_AFTER_SEMICOLON)
+				printf("------------------\n end of pipeline :) \n-----------------\n\n");
+			i++;
+		}
         dlist_move_cursor_to_next(c_lists);
     }
     cmd_tables_destroy(c_lists); 
     return (0);
-} */
+}
+
+
+
 void rstr_remove_char(t_rstr rs)
 {
 	rs->len--;
@@ -64,7 +74,7 @@ void print_repl_prompt(void)
 
 
 
-int main()
+/* int main()
 {
 	tgetent(getenv("TERM"), NULL);
     t_dlist c_lists;
@@ -109,4 +119,4 @@ int main()
 		}
 	}
 	return 0;
-}
+} */
