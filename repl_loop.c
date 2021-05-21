@@ -11,10 +11,38 @@
 #define KEY_UP_D -72
 # define KEY_REMOVE 127
 
+struct s_history_node
+{
+	char *str_1;
+	char *str_2;
+};
+
+typedef struct s_history_node *t_history_node;
+
+t_history_node empty_history_node(void)
+{
+	t_history_node hn;
+
+	hn = malloc(sizeof(struct s_history_node));
+	hn->str_1 = NULL;
+	hn->str_2 = NULL;
+	return (hn);
+}
+
+void history_node_destroy(t_history_node hn)
+{
+	if (hn->str_1)
+		free(hn->str_1);
+	if (hn->str_2)
+		free(hn->str_2);
+	free(hn);
+}
+
 void rstr_remove_char(t_rstr rs)
 {
 	rs->len--;
 }
+
 int ft_putchar(int c)
 {
 	return (write(1, &c, 1));
@@ -110,6 +138,7 @@ int main()
 			else if (c == 10 && rs->len > 0)
 			{
 				dlist_move_cursor_to_tail(dl);
+				//dlist_insert_after_cursor(dl, empty_history_node())
 				dlist_insert_after_cursor(dl, rstr_to_cstr(rs));
 				printf("\n");
 				print_repl_prompt();
