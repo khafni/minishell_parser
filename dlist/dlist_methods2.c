@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dlist_methods1.c                                   :+:      :+:    :+:   */
+/*   dlist_methods2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:06:00 by khafni            #+#    #+#             */
-/*   Updated: 2021/03/16 12:06:08 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/22 17:10:06 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ void			dlist_move_cursor_to_tail(t_dlist l)
 
 void			dlist_move_cursor_to_next(t_dlist l)
 {
+	if (l->cursor_n != l->sentinel)
+	{
 	l->cursor_p = l->cursor_n;
 	l->cursor_n = l->cursor_n->n;
+	}
 }
 
 void			dlist_move_cursor_to_previous(t_dlist l)

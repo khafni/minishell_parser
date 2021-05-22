@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 12:12:05 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/20 11:51:23 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/22 15:12:41 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,19 @@ void			cstr_to_rstr_without_n_rs(char *src, t_rstr dst)
 		rstr_add(dst, src[i]);
 		i++;
 	}
+}
+
+t_rstr			rstr_clone(t_rstr src)
+{
+	t_rstr dst;
+	int i;
+
+	dst = rstr_create(0);
+	i = 0;
+	while (i < src->len)
+	{
+		rstr_set(dst, i, rstr_get(src, i));
+		i++;
+	} 
+	return (dst);
 }
