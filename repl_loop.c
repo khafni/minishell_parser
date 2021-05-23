@@ -6,37 +6,13 @@
 #include "libft/libft.h"
 #include "dlist/dlists.h"
 #include "CPCA/generic_parrays/garrptr.h"
+#include "command_table_generator.h"
 
 #define KEY_U -73
 #define KEY_D -72
-# define KEY_REMOVE 127
+#define KEY_REMOVE 127
 
-struct s_history_node
-{
-	char *str_1;
-	char *str_2;
-};
 
-typedef struct s_history_node *t_history_node;
-
-t_history_node empty_history_node(void)
-{
-	t_history_node hn;
-
-	hn = malloc(sizeof(struct s_history_node));
-	hn->str_1 = NULL;
-	hn->str_2 = NULL;
-	return (hn);
-}
-
-void history_node_destroy(t_history_node hn)
-{
-	if (hn->str_1)
-		free(hn->str_1);
-	if (hn->str_2)
-		free(hn->str_2);
-	free(hn);
-}
 
 void rstr_remove_char(t_rstr rs)
 {
@@ -48,17 +24,16 @@ int ft_putchar(int c)
 	return (write(1, &c, 1));
 }
 
-
 int get_char()
 {
 	char c;
 	int total;
-	struct termios term, init;
+	struct termios term;
+	struct termios init;
+
 	tcgetattr(0, &term);
 	tcgetattr(0, &init);
 	term.c_lflag &= ~(ICANON | ECHO);
-	term.c_cc[VMIN] = 0;
-	term.c_cc[VTIME] = 0;
 	tcsetattr(0, TCSANOW, &term);
 	total = 0;
 	while (read(0, &c, 1) <= 0)
@@ -70,7 +45,6 @@ int get_char()
 	return (total);
 }
 
-
 void print_repl_prompt(void)
 {
 	ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", 1);
@@ -80,8 +54,8 @@ void print_repl_prompt(void)
 
 void print_rstr(int fd, t_rstr rs)
 {
-	int		i;
-	char	c;
+	int i;
+	char c;
 
 	i = 0;
 	c = 0;
@@ -101,83 +75,99 @@ void termcap_remove_n_ch(int n_of_chars)
 	while (i < n_of_chars)
 	{
 		tputs(tgetstr("le", NULL), 1, ft_putchar);
-		
+
 		i++;
 	}
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 	tputs(tgetstr("dc", NULL), 1, ft_putchar);
 }
 
-int main()
-{	
+void backspace_event_handler(t_rstr rs)
+{
+	if (rs->len)
+	{
+		rstr_remove_char(rs);
+		tputs(tgetstr("le", NULL), 1, ft_putchar);
+		tputs(tgetstr("sc", NULL), 1, ft_putchar);
+		tputs(tgetstr("dc", NULL), 1, ft_putchar);
+	}
+}
+
+void return_key_handler(t_dlist history_list, t_rstr rs)
+{
+	dlist_move_cursor_to_tail(history_list);
+	if (rs->len)
+	{
+		dlist_insert_before_cursor(history_list, rstr_clone(rs));
+		rstr_clear(rs);
+	}
+	write(1, "\n", 1);
+	rstr_clear(rs);
+}
+
+void repl_handle_keys(t_rstr *rs, t_rstr rs_tmp, char c, t_dlist dl)
+{
+	t_rstr rs_;
+
+	rs_ = *rs;
+	if (c == KEY_D)
+	{
+		dlist_move_cursor_to_next(dl);
+		if (dl->cursor_n != dl->sentinel)
+		{
+			print_rstr(1, cstr_to_rstr("random string1"));
+			*rs = dl->cursor_n->value;
+		}
+		else
+			*rs = rs_tmp;
+	}
+	else if (c == KEY_U)
+	{
+		dlist_move_cursor_to_previous(dl);
+		if (dl->cursor_n != dl->sentinel)
+			*rs = dl->cursor_n->value;
+	}
+	else if (c == KEY_REMOVE)
+		backspace_event_handler(rs_);
+	else if (ft_isprint(c) && c != 10)
+		rstr_add(rs_, (char)c);
+	else if (c == 10 && rs_->len > 0)
+		return_key_handler(dl, *rs);
+}
+
+void repl(t_dlist (*parser_func)(char *parsing_text), void (*exec_func)(t_dlist command_tables))
+{
+	t_dlist dl;
+	t_rstr rs;
+	t_rstr rs_tmp;
+	char c;
+
 	tgetent(getenv("TERM"), NULL);
-	t_dlist dl = dlist_empty_create(rstr_destroy, NULL, NULL);
-	t_rstr rs = rstr_create(0);
-	t_rstr rs_tmp = rs;
-	char c = 0;
-	int i = 0;	
+	dl = dlist_empty_create(rstr_destroy, NULL, NULL);
+	rs = rstr_create(0);
+	rs_tmp = rs;
+	c = 0;
 	print_repl_prompt();
 	while (1)
 	{
-		tputs(tgetstr("ce", NULL), 1, ft_putchar);		
+		tputs(tgetstr("ce", NULL), 1, ft_putchar);
 		while ((c = get_char()))
 		{
-			if (c == KEY_D)
-			{
-				dlist_move_cursor_to_next(dl);
-				if (dl->cursor_n != dl->sentinel)
-				{
-					print_rstr(1, cstr_to_rstr("random string1"));
-					rs = dl->cursor_n->value;
-				}
-				else
-					rs = rs_tmp;
-			}
-			else if (c == KEY_U)
-			{
-				dlist_move_cursor_to_previous(dl);
-				if (dl->cursor_n != dl->sentinel)
-				
-					rs = dl->cursor_n->value;
-			}
-			else if (c == KEY_REMOVE)
-			{
-				if (rs->len)
-				{
-					rstr_remove_char(rs);
-					tputs(tgetstr("le", NULL), 1, ft_putchar);
-					tputs(tgetstr("sc", NULL), 1, ft_putchar);
-					tputs(tgetstr("dc", NULL), 1, ft_putchar);
-				}
-			}
-			else if (ft_isprint(c) && c != 10)
-			{
-				//write(1, &c, 1);
-				rstr_add(rs, (char)c);
-				//print_rstr(1, rs);
-			}
-			else if (c == 10 && rs->len > 0)
-			{
-				dlist_move_cursor_to_tail(dl);
-				//dlist_insert_after_cursor(dl, empty_history_node())
-				if (rs->len)
-				{
-					dlist_insert_before_cursor(dl, rstr_clone(rs));
-					//rs = rstr_create(0);
-					rstr_clear(rs);
-				}
-				printf("\n");
-				//print_repl_prompt();
-				rstr_clear(rs);
-			}
-			/* tputs(tgetstr("cr", NULL), 1, ft_putchar);
-			tputs(tgetstr("sc", NULL), 1, ft_putchar);
-			tputs(tgetstr("cr", NULL), 1, ft_putchar); */
+			repl_handle_keys(&rs, rs_tmp, c, dl);
 			tputs(tgetstr("dl", NULL), 1, ft_putchar);
 			print_repl_prompt();
 			print_rstr(1, rs);
+			t_dlist c_lists = cmd_tables_list(rstr_to_cstr(rs));
 			c = 0;
 		}
 	}
+	dlist_destroy(dl);
+	rstr_destroy(rs);
+	rstr_destroy(rs_tmp);
+}
+
+int main()
+{
+	repl(NULL, NULL);
 	return 0;
 }
