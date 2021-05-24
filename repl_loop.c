@@ -6,13 +6,10 @@
 #include "libft/libft.h"
 #include "dlist/dlists.h"
 #include "CPCA/generic_parrays/garrptr.h"
-#include "command_table_generator.h"
 
 #define KEY_U -73
 #define KEY_D -72
 #define KEY_REMOVE 127
-
-
 
 void rstr_remove_char(t_rstr rs)
 {
@@ -28,12 +25,12 @@ int get_char()
 {
 	char c;
 	int total;
-	struct termios term;
-	struct termios init;
-
+	struct termios term, init;
 	tcgetattr(0, &term);
 	tcgetattr(0, &init);
 	term.c_lflag &= ~(ICANON | ECHO);
+	term.c_cc[VMIN] = 0;
+	term.c_cc[VTIME] = 0;
 	tcsetattr(0, TCSANOW, &term);
 	total = 0;
 	while (read(0, &c, 1) <= 0)
@@ -81,6 +78,7 @@ void termcap_remove_n_ch(int n_of_chars)
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 	tputs(tgetstr("dc", NULL), 1, ft_putchar);
 }
+
 
 void backspace_event_handler(t_rstr rs)
 {
@@ -157,7 +155,6 @@ void repl(t_dlist (*parser_func)(char *parsing_text), void (*exec_func)(t_dlist 
 			tputs(tgetstr("dl", NULL), 1, ft_putchar);
 			print_repl_prompt();
 			print_rstr(1, rs);
-			t_dlist c_lists = cmd_tables_list(rstr_to_cstr(rs));
 			c = 0;
 		}
 	}
